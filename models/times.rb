@@ -1,25 +1,23 @@
 require_relative("../db/sql_runner")
 
 class Time
-  attr_accessor :time, :film_id
+  attr_accessor :time
   attr_reader :id
 
   def initialize(options)
     @scheduled_for = options['scheduled_for']
-    @film_id = options['film_id']
   end
 
   def save()
     sql = "INSERT INTO times
     (
-      scheduled_for,
-      film_id
+      scheduled_for
     )
     VALUES
     (
-      $1, $2
+      $1
       ) RETURNING id;"
-      values = [@scheduled_for, @film_id]
+      values = [@scheduled_for]
       result = SqlRunner.run(sql, "save_time", values)
       @id = result[0]['id'].to_i
       return result
@@ -28,13 +26,12 @@ class Time
     def update()
       sql = "UPDATE times SET
       (
-        scheduled_for,
-        film_id
+        scheduled_for
         ) = (
-          $1, $2
+          $1
         )
-        WHERE id = $3;"
-        values = [@scheduled_for, @film_id, @id]
+        WHERE id = $2;"
+        values = [@scheduled_for, @id]
         result = SqlRunner.run(sql, "update_time", values)
       end
 
@@ -66,13 +63,7 @@ class Time
         return times.map { |time| Time.new(time) }
       end
 
-      # def self.find_customers_times(id)
-      #   sql = "SELECT * FROM times WHERE customer_id = $1"
-      #   values = [id]
-      #   times = SqlRunner.run(sql, "find_times", values)
-      #   result = times.map {|time| Time.new(time)}
-      #   return result
-      # end
+
 
 
     end

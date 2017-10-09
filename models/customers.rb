@@ -81,6 +81,18 @@ class Customer
         update()
       end
 
+      def tickets()
+        sql = "SELECT count(tickets.*) FROM tickets
+        INNER JOIN customers ON
+        tickets.customer_id = customers.id
+        WHERE customer_id = $1;"
+        values = [@id]
+        tickets = SqlRunner.run(sql, "find_how_many_tickets_by_customers", values)
+        return tickets[0]['count'].to_i
+      end
+
+
+
       # def customer_customers(film)
       #   return film.count()
       # end

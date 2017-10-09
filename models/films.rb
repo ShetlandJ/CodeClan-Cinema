@@ -30,9 +30,9 @@ class Film
         title,
         cost
         ) = (
-          $1, $2, $3
+          $1, $2
         )
-        WHERE id = $4;"
+        WHERE id = $3;"
         values = [@title, @cost, @id]
         result = SqlRunner.run(sql, "update_film", values)
       end
@@ -75,11 +75,28 @@ class Film
         return customers.map { |customer| Customer.new( customer ) }
       end
 
-      # def self.cinema_listings()
-      #   sql = "SELECT * FROM films ORDER BY on_at"
-      #   values = []
-      #   films = SqlRunner.run(sql, "list_films_by_start_time", values)
-      #   return films.map { |film| Film.new(films) }
-      # end
+      def customer_count()
+        customers().count()
+      end
+
+      def self.screenings()
+        sql = "SELECT f.*, s.*
+        FROM films f JOIN screenings s
+        ON f.id = s.film_id"
+        values = []
+        screenings = SqlRunner.run(sql, "return_listings", values)
+        return screenings
+        # .map { |screening| Screening.new( screening ) }
+      end
+
+      def self.screenings_ordered()
+        sql = "SELECT f.*, s.*
+        FROM films f JOIN screenings s
+        ON f.id = s.film_id
+        ORDER BY scheduled_for"
+        values = []
+        screenings = SqlRunner.run(sql, "return_listings", values)
+        return screenings
+      end
 
     end

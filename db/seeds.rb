@@ -2,10 +2,12 @@ require("pry")
 require_relative("../models/customers")
 require_relative("../models/films")
 require_relative("../models/tickets")
+require_relative("../models/screenings")
 require_relative("../models/times")
 
 
 Ticket.delete_all()
+Screening.delete_all()
 Time.delete_all()
 Film.delete_all()
 Customer.delete_all()
@@ -72,75 +74,66 @@ customer1 = Customer.new({
 
                   film6.save()
 
-                ticket1 = Ticket.new({
-                  'customer_id' => customer1.id,
-                  'film_id' => film1.id
-                  })
-
-                  ticket1.save()
-
-                  ticket2 = Ticket.new({
-                    'customer_id' => customer2.id,
-                    'film_id' => film2.id
+                  screening1 = Screening.new({
+                    'film_id' => film1.id,
+                    'scheduled_for' => 1930,
+                    'screen' => 1
                     })
 
-                    ticket2.save()
+                    screening1.save()
 
-                    ticket3 = Ticket.new({
-                      'customer_id' => customer3.id,
-                      'film_id' => film3.id
+                    screening2 = Screening.new({
+                      'film_id' => film2.id,
+                      'scheduled_for' => 2030,
+                      'screen' => 5
                       })
 
-                      ticket3.save()
+                      screening2.save()
 
-                      ticket4 = Ticket.new({
-                        'customer_id' => customer1.id,
-                        'film_id' => film2.id
+                      screening3 = Screening.new({
+                        'film_id' => film3.id,
+                        'scheduled_for' => 1230,
+                        'screen' => 3
                         })
 
-                        ticket4.save()
-                        #
-                        time1 = Time.new({
-                          'scheduled_for' => 1730,
-                          'film_id' => film3.id
+                        screening3.save()
+
+                        screening4 = Screening.new({
+                          'film_id' => film4.id,
+                          'scheduled_for' => 2350,
+                          'screen' => 2
                           })
 
-                          time1.save()
+                          screening4.save()
 
-                          time2 = Time.new({
-                            'scheduled_for' => 1830,
-                            'film_id' => film4.id
+                          ticket1 = Ticket.new({
+                            'customer_id' => customer1.id,
+                            'screening_id' => screening1.id
                             })
 
-                            time2.save()
+                            ticket1.save()
 
-                            time3 = Time.new({
-                              'scheduled_for' => 1930,
-                              'film_id' => film6.id
+                            ticket2 = Ticket.new({
+                              'customer_id' => customer2.id,
+                              'screening_id' => screening2.id
+
                               })
 
-                              time3.save()
+                              ticket2.save()
 
-                              time4 = Time.new({
-                                'scheduled_for' => 2030,
-                                'film_id' => film1.id
+                              ticket3 = Ticket.new({
+                                'customer_id' => customer3.id,
+                                'screening_id' => screening3.id
                                 })
 
-                                time4.save()
+                                ticket3.save()
 
-                                time5 = Time.new({
-                                  'scheduled_for' => 2130,
-                                  'film_id' => film5.id
+                                ticket4 = Ticket.new({
+                                  'customer_id' => customer2.id,
+                                  'screening_id' => screening4.id
                                   })
 
-                                  time5.save()
+                                  ticket4.save()
 
-                                  time6 = Time.new({
-                                    'scheduled_for' => 2350,
-                                    'film_id' => film1.id
-                                    })
-
-                                    time6.save()
-
-                        pry.binding
-                        nil
+                                  pry.binding
+                                  nil
