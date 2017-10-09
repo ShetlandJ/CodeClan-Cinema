@@ -54,7 +54,7 @@ customer1 = Customer.new({
             film3.save()
 
             film4 = Film.new({
-              'title' => 'The Room',
+              'title' => 'Minority Report',
               'cost' => 10,
               })
 
@@ -106,6 +106,14 @@ customer1 = Customer.new({
 
                           screening4.save()
 
+                          screening5 = Screening.new({
+                            'film_id' => film4.id,
+                            'scheduled_for' => 1900,
+                            'screen' => 10
+                            })
+
+                          screening5.save()
+
                           ticket1 = Ticket.new({
                             'customer_id' => customer1.id,
                             'screening_id' => screening1.id
@@ -116,7 +124,6 @@ customer1 = Customer.new({
                             ticket2 = Ticket.new({
                               'customer_id' => customer2.id,
                               'screening_id' => screening2.id
-
                               })
 
                               ticket2.save()
@@ -134,6 +141,16 @@ customer1 = Customer.new({
                                   })
 
                                   ticket4.save()
+
+                                  ticket5 = Ticket.new({
+                                    'customer_id' => customer1.id,
+                                    'screening_id' => screening5.id
+                                    })
+
+                                    ticket5.save()
+
+
+
 
                                   pry.binding
                                   nil

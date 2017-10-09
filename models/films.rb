@@ -90,12 +90,12 @@ class Film
       end
 
       def self.screenings_ordered()
-        sql = "SELECT f.*, s.*
-        FROM films f JOIN screenings s
-        ON f.id = s.film_id
-        ORDER BY scheduled_for"
+        sql = "SELECT count(*), f.title
+        FROM  films f
+        JOIN    screenings s
+        ON       f.id = s.film_id GROUP BY f.title;"
         values = []
-        screenings = SqlRunner.run(sql, "return_listings", values)
+        screenings = SqlRunner.run(sql, "return_listings_count", values)
         return screenings
       end
 
